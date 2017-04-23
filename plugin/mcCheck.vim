@@ -23,6 +23,7 @@ func Formatcheck()
     let n = line('.')
     call Format()
     execute n
+    silent! "w"
     echom "FCheck: Code Format Done!"
     if (expand('%:e') == 'php')
         let result = system(g:PHP_SYNTAX_CHECK_BIN.' -l -n '.expand('%'))
