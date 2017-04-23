@@ -21,9 +21,9 @@ nmap <F4> :call Addhead()<CR>:10<CR>o
 nmap <F12> :call Funchead()<CR>:.+5<CR>o
 func Formatcheck()
     let n = line('.')
+    silent! w
     call Format()
     execute n
-    silent! w
     echom "FCheck: Code Format Done!"
     if (expand('%:e') == 'php')
         let result = system(g:PHP_SYNTAX_CHECK_BIN.' -l -n '.expand('%'))
