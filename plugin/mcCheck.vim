@@ -19,7 +19,8 @@ endif
 command F call Formatcheck()
 nmap <F4> :call Addhead()<CR>:10<CR>o
 nmap <F12> :call Funchead()<CR>:.+5<CR>o
-func Formatcheck()
+if !exists("*Formatcheck")
+func! Formatcheck()
     let n = line('.')
     silent! w
     call Format()
@@ -32,6 +33,8 @@ func Formatcheck()
         endif
     endif
 endfunc
+endif
+if !exists("*Format")
 function! Format()
     call Removess()
     try
@@ -42,14 +45,18 @@ function! Format()
     catch
     endtry
 endfunction
-func Removess()
+endif
+if !exists("*Removess")
+func! Removess()
     try
         execute '%s/\s\+$'
         execute '%s/^M$//g'
     catch
     endtry
 endfunc
-func Addhead()
+endif
+if !exists("*Addhead")
+func! Addhead()
     let n = 3
     let line = getline(n)
     let str = '^ \* Copyright @ $' 
@@ -58,7 +65,9 @@ func Addhead()
         endif
     call Setfilehead()
 endfunc
-func Setfilehead()
+endif
+if !exists("*Setfilehead")
+func! Setfilehead()
     call append(0, '<?php')
     call append(1, '/**')
     call append(2, g:Copyright)
@@ -67,10 +76,13 @@ func Setfilehead()
     call append(5, ' * Desc: ')
     call append(6, ' */')
 endfunc
-func Funchead()
+endif
+if !exists("*Funchead")
+func! Funchead()
     call append(line(".")+0, '    /**')
     call append(line(".")+1, '     * @param')
     call append(line(".")+2, '     * @return')
     call append(line(".")+3, '     * Desc')
     call append(line(".")+4, '     */')
 endfunc
+endif
