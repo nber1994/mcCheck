@@ -16,7 +16,7 @@ let User      = ' * User: ' . get(split(system('who'), ' '), 0)
 if !exists('g:PHP_SYNTAX_CHECK_BIN')
     let g:PHP_SYNTAX_CHECK_BIN = 'php'
 endif
-command F call Formatcheck()
+command! F call Formatcheck()
 nmap <F4> :call Addhead()<CR>:10<CR>o
 nmap <F12> :call Funchead()<CR>:.+5<CR>o
 if !exists("*Formatcheck")
@@ -24,7 +24,7 @@ func! Formatcheck()
     let n = line('.')
     silent! w
     call Format()
-    execute n
+    execute! n
     echom "FCheck: Code Format Done!"
     if (expand('%:e') == 'php')
         let result = system(g:PHP_SYNTAX_CHECK_BIN.' -l -n '.expand('%'))
@@ -38,10 +38,10 @@ if !exists("*Format")
 function! Format()
     call Removess()
     try
-        execute "normal gg=G \<Esc>"
-        execute 'set ts=4'
-        execute 'set expandtab'
-        execute '%retab!'
+        execute! "normal gg=G \<Esc>"
+        execute! 'set ts=4'
+        execute! 'set expandtab'
+        execute! '%retab!'
     catch
     endtry
 endfunction
@@ -49,8 +49,8 @@ endif
 if !exists("*Removess")
 func! Removess()
     try
-        execute '%s/\s\+$'
-        execute '%s/^M$//g'
+        execute! '%s/\s\+$'
+        execute! '%s/^M$//g'
     catch
     endtry
 endfunc
