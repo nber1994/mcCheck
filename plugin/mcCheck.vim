@@ -19,6 +19,9 @@ endif
 command! F call Formatcheck()
 nmap <F4> :call Addhead()<CR>:10<CR>o
 nmap <F12> :call Funchead()<CR>:.+5<CR>o
+nmap <F6> :call Funcdebug1()<CR>:.+4<CR>
+nmap <F7> :call Funcdebug2()<CR>:.+4<CR>
+nmap <F8> :call Funcdebug3()<CR>:.+4<CR>
 if !exists("*Formatcheck")
 func! Formatcheck()
     let n = line('.')
@@ -84,5 +87,42 @@ func! Funchead()
     call append(line(".")+2, '     * @return')
     call append(line(".")+3, '     * Desc')
     call append(line(".")+4, '     */')
+endfunc
+endif
+if !exists("*Funcdebug1")
+func! Funcdebug1()
+    call append(line(".")+0, '')
+    call append(line(".")+1, '//********debug 断点，后续请删除*********')
+    call append(line(".")+2, 'if (true) {')
+    call append(line(".")+3, '$var = var_export(, true);')
+    call append(line(".")+4, "file_put_contents('/tmp/log', $var);")
+    call append(line(".")+5, 'die;')
+    call append(line(".")+6, '}')
+    call append(line(".")+7, '//********debug 断点，后续请删除*********')
+    call append(line(".")+8, '')
+endfunc
+endif
+if !exists("*Funcdebug2")
+func! Funcdebug2()
+    call append(line(".")+0, '')
+    call append(line(".")+1, '//********debug 断点，后续请删除*********')
+    call append(line(".")+2, 'if (true) {')
+    call append(line(".")+3, 'var_dump();')
+    call append(line(".")+4, 'die;')
+    call append(line(".")+5, '}')
+    call append(line(".")+6, '//********debug 断点，后续请删除*********')
+    call append(line(".")+7, '')
+endfunc
+endif
+if !exists("*Funcdebug3")
+func! Funcdebug3()
+    call append(line(".")+0, '')
+    call append(line(".")+1, '//********debug 断点，后续请删除*********')
+    call append(line(".")+2, 'if (true) {')
+    call append(line(".")+3, 'print_r();')
+    call append(line(".")+4, 'die;')
+    call append(line(".")+5, '}')
+    call append(line(".")+6, '//********debug 断点，后续请删除*********')
+    call append(line(".")+7, '')
 endfunc
 endif
