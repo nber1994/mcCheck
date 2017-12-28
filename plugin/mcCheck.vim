@@ -26,7 +26,7 @@ if !exists("*Funcmove")
 func! Funcmove(line, clom)
     let pos = getpos(".")
     let pos[1] = pos[1] + a:line
-    let pos[2] = pos[2] + a:clom
+    let pos[2] = a:clom
     call setpos('.', pos)
 endfunc
 endif
@@ -108,7 +108,7 @@ func! Funcdebug1()
     call append(line(".")+6, '}')
     call append(line(".")+7, '//********debug 断点，后续请删除*********')
     call append(line(".")+8, '')
-    call Funcmove(4, 18)
+    call Funcmove(4, 19)
 endfunc
 endif
 if !exists("*Funcdebug2")
@@ -121,7 +121,7 @@ func! Funcdebug2()
     call append(line(".")+5, '}')
     call append(line(".")+6, '//********debug 断点，后续请删除*********')
     call append(line(".")+7, '')
-    call Funcmove(4, 9)
+    call Funcmove(4, 10)
 endfunc
 endif
 if !exists("*Funcdebug3")
@@ -134,6 +134,6 @@ func! Funcdebug3()
     call append(line(".")+5, '}')
     call append(line(".")+6, '//********debug 断点，后续请删除*********')
     call append(line(".")+7, '')
-    call Funcmove(4, 8)
+    call Funcmove(4, 9)
 endfunc
 endif
