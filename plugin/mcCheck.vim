@@ -19,9 +19,17 @@ endif
 command! F call Formatcheck()
 nmap <F4> :call Addhead()<CR>:10<CR>o
 nmap <F12> :call Funchead()<CR>:.+5<CR>o
-nmap <F6> :call Funcdebug1()<CR>:.+4<CR>
-nmap <F7> :call Funcdebug2()<CR>:.+4<CR>
-nmap <F8> :call Funcdebug3()<CR>:.+4<CR>
+nmap <F6> :call Funcdebug1()<CR>i
+nmap <F7> :call Funcdebug2()<CR>i
+nmap <F8> :call Funcdebug3()<CR>i
+if !exists("*Funcmove")
+func! Funcmove(line, clom)
+    let pos = getpos(".")
+    let pos[1] = pos[1] + a:line
+    let pos[2] = pos[2] + a:clom
+    call setpos('.', pos)
+endfunc
+endif
 if !exists("*Formatcheck")
 func! Formatcheck()
     let n = line('.')
@@ -100,6 +108,7 @@ func! Funcdebug1()
     call append(line(".")+6, '}')
     call append(line(".")+7, '//********debug 断点，后续请删除*********')
     call append(line(".")+8, '')
+    call Funcmove(4, 18)
 endfunc
 endif
 if !exists("*Funcdebug2")
@@ -112,6 +121,7 @@ func! Funcdebug2()
     call append(line(".")+5, '}')
     call append(line(".")+6, '//********debug 断点，后续请删除*********')
     call append(line(".")+7, '')
+    call Funcmove(4, 9)
 endfunc
 endif
 if !exists("*Funcdebug3")
@@ -124,5 +134,6 @@ func! Funcdebug3()
     call append(line(".")+5, '}')
     call append(line(".")+6, '//********debug 断点，后续请删除*********')
     call append(line(".")+7, '')
+    call Funcmove(4, 8)
 endfunc
 endif
